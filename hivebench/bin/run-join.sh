@@ -27,31 +27,22 @@ DIR=`cd $bin/../; pwd`
 rm -rf ${DIR}/metastore_db
 rm -rf ${DIR}/TempStatsStore
 $HADOOP_EXECUTABLE $RMDIR_CMD /user/hive/warehouse/rankings_uservisits_join
-#$HADOOP_EXECUTABLE $RMDIR_CMD /tmp
 
 # pre-running
-echo "USE DEFAULT;">$DIR/hive-benchmark/rankings_uservisits_join.hive
 echo "set $CONFIG_MAP_NUMBER=$NUM_MAPS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 echo "set $CONFIG_REDUCER_NUMBER=$NUM_REDS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 echo "set hive.stats.autogather=false;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 
 if [ "x"$HADOOP_VERSION == "xhadoop2" ]; then
   echo "set mapreduce.jobtracker.address=ignorethis">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-  echo "set hive.exec.show.job.failure.debug.info=false">>$DIR/hive-benchmark/rankings_uservisits_join.hive
+   echo "set hive.exec.show.job.failure.debug.info=false">>$DIR/hive-benchmark/rankings_uservisits_join.hive
+fi
 
-  if [ $COMPRESS -eq 1 ]; then
-    echo "set mapreduce.map.output.compress=true;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-    echo "set mapreduce.map.output.compress.codec=${COMPRESS_CODEC};">>$DIR/hive-benchmark/rankings_uservisits_join.hive
+if [ $COMPRESS -eq 1 ]; then
+    echo "set mapreduce.output.fileoutputformat.compress=true;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
     echo "set hive.exec.compress.output=true;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-    echo "set mapreduce.fileoutputformat.compress.type=BLOCK;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-  fi
-else
-  if [ $COMPRESS -eq 1 ]; then
-    echo "set mapred.output.compress=true;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-    echo "set hive.exec.compress.output=true;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-    echo "set mapred.output.compression.type=BLOCK;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-    echo "set mapred.output.compression.codec=${COMPRESS_CODEC};">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-  fi
+    echo "set mapreduce.output.fileoutputformat.compress.type=BLOCK;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
+    echo "set mapreduce.output.fileoutputformat.compress.codec=${COMPRESS_CODEC};">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 fi
 
 echo "DROP TABLE rankings;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
@@ -61,16 +52,9 @@ echo "CREATE EXTERNAL TABLE rankings (pageURL STRING, pageRank INT, avgDuration 
 echo "CREATE EXTERNAL TABLE uservisits (sourceIP STRING,destURL STRING,visitDate STRING,adRevenue DOUBLE,userAgent STRING,countryCode STRING,languageCode STRING,searchWord STRING,duration INT ) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS SEQUENCEFILE LOCATION '$INPUT_HDFS/uservisits/';">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 cat $DIR/hive-benchmark/rankings_uservisits_join.template>>$DIR/hive-benchmark/rankings_uservisits_join.hive
 
-USIZE=$($HADOOP_EXECUTABLE job -history $INPUT_HDFS/uservisits | grep 'HiBench.Counters.*|BYTES_DATA_GENERATED')
-USIZE=${USIZE##*|}
-USIZE=${USIZE//,/}
-
-RSIZE=$($HADOOP_EXECUTABLE job -history $INPUT_HDFS/rankings | grep 'HiBench.Counters.*|BYTES_DATA_GENERATED')
-RSIZE=${RSIZE##*|}
-RSIZE=${RSIZE//,/}
-
+USIZE=`dir_size $INPUT_HDFS/uservisits`
+RSIZE=`dir_size $INPUT_HDFS/rankings`
 SIZE=$((USIZE+RSIZE))
-
 START_TIME=`timestamp`
 
 # run bench

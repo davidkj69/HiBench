@@ -16,6 +16,7 @@
 
 #export HADOOP_HOME=
 #export JAVA_HOME=/usr/lib/jvm/default-java
+export JAVA_HOME=/usr/jdk64/jdk1.6.0_31
 
 this="${BASH_SOURCE-$0}"
 bin=$(cd -P -- "$(dirname -- "$this")" && pwd -P)
@@ -26,9 +27,12 @@ export HIBENCH_VERSION="2.2"
 
 ###################### Global Paths ##################
 
-HADOOP_EXECUTABLE= 
-HADOOP_CONF_DIR=
-HADOOP_EXAMPLES_JAR=
+HADOOP_EXECUTABLE=/usr/bin/hadoop 
+HADOOP_CONF_DIR=/etc/hadoop/conf
+HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
+HIBENCH_HOME=/mnt/HiBench
+HIVE_HOME=/usr
+MAHOUT_HOME=/usr/lib/mahout
 
 if [ -n "$HADOOP_HOME" ]; then
 	HADOOP_EXECUTABLE=$HADOOP_HOME/bin/hadoop
@@ -43,9 +47,8 @@ else
 fi
 
 if [ "x"$HADOOP_VERSION == "xhadoop2" ]; then
-	export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-	HADOOP_EXAMPLES_JAR=$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples*.jar
-  MAPRED_EXECUTABLE=$HADOOP_HOME/bin/mapred
+   HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
+   MAPRED_EXECUTABLE=/usr/bin/mapred
 
   CONFIG_REDUCER_NUMBER=mapreduce.job.reduces
   CONFIG_MAP_NUMBER=mapreduce.job.maps

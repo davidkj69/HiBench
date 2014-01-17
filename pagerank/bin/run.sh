@@ -33,19 +33,15 @@ else
 fi
 
 # path check
-$HADOOP_EXECUTABLE dfs -rmr $TEMP_HDFS
-$HADOOP_EXECUTABLE dfs -rmr $OUTPUT_HDFS
+$HADOOP_EXECUTABLE dfs -rm -r $TEMP_HDFS
+$HADOOP_EXECUTABLE dfs -rm -r $OUTPUT_HDFS
 
 # pre-running
-ESIZE=$($HADOOP_EXECUTABLE job -history $INPUT_HDFS/vertices | grep 'HiBench.Counters.*|BYTES_DATA_GENERATED')
-VSIZE=${VSIZE##*|}
-VSIZE=${VSIZE//,/}
-
-ESIZE=$($HADOOP_EXECUTABLE job -history $INPUT_HDFS/edges | grep 'HiBench.Counters.*|BYTES_DATA_GENERATED')
-ESIZE=${ESIZE##*|}
-ESIZE=${ESIZE//,/}
+VSIZE=`dir_size $INPUT_HDFS/vertices`
+ESIZE=`dir_size $INPUT_HDFS/edges`
 
 SIZE=$((VSIZE+ESIZE))
+
 if [ $BLOCK -eq 0 ]
 then
     OPTION="${COMPRESS_OPT} ${INPUT_HDFS}/edges ${OUTPUT_HDFS} ${PAGES} ${NUM_REDS} ${NUM_ITERATIONS} nosym new"

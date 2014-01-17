@@ -17,7 +17,7 @@
 bin=`dirname "$0"`
 bin=`cd "$bin"; pwd`
 
-echo "========== running kmeans bench =========="
+echo "========== running hbase bench =========="
 # configure
 DIR=`cd $bin/../; pwd`
 . "${DIR}/../bin/hibench-config.sh"
@@ -25,28 +25,28 @@ DIR=`cd $bin/../; pwd`
 
 check_compress
 
-$HADOOP_EXECUTABLE $RMDIR_CMD ${OUTPUT_HDFS}
-
-if [ "x"$HADOOP_VERSION == "xhadoop2" ]; then
-  SSIZE=`grep "BYTES_DATA_GENERATED=" $TMPLOGFILE | sed 's/BYTES_DATA_GENERATED=//'`
-else
-  SSIZE=$($HADOOP_EXECUTABLE job -history $INPUT_SAMPLE | grep 'HiBench.Counters.*|BYTES_DATA_GENERATED')
-  SSIZE=${SSIZE##*|}
-  SSIZE=${SSIZE//,/}
-fi
-
-CSIZE=`dir_size $INPUT_CLUSTER`
-SIZE=$(($SSIZE+$CSIZE))
-
-# pre-running
-OPTION="$COMPRESS_OPT -i ${INPUT_SAMPLE} -c ${INPUT_CLUSTER} -o ${OUTPUT_HDFS} -x ${MAX_ITERATION} -ow -cl -cd 0.5 -dm org.apache.mahout.common.distance.EuclideanDistanceMeasure -xm mapreduce"
-START_TIME=`timestamp`
-
-# run bench
 export JAVA_HOME=/usr/jdk64/jdk1.6.0_31
-${MAHOUT_HOME}/bin/mahout kmeans  ${OPTION}
 
-# post-running
-END_TIME=`timestamp`
-gen_report "KMEANS" ${START_TIME} ${END_TIME} ${SIZE}
+for benchmark in `cat $DIR/conf/benchmarks.lst`; do
+    if [[ $benchmark == \#* ]]; then
+        continue
+    else
 
+      echo "========== running hbase $benchmark =========="
+      # Capture the start time
+      START_TIME=`timestamp`
+
+      # Run the Performance test
+      $HBASE_EXECUTABLE $HBASE_CLASS --rows=$ROWS $benchmark $NUM_CLIENTS 
+
+      # Capture the end time
+      END_TIME=`timestamp`
+
+      # A few other variables for the report
+      let SIZE=$ROWS*$NUM_CLIENTS*1000
+      BM_NAME=`echo $benchmark | tr [:lower:] [:upper:]`
+
+      # Record the results
+      gen_report "HBASE-$BM_NAME" ${START_TIME} ${END_TIME} ${SIZE}
+    fi
+done
