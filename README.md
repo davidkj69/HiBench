@@ -66,10 +66,13 @@ Note: Since HiBench-2.2, the input data of benchmarks are all automatically gene
 
     This workload is developed based on SIGMOD 09 paper "A Comparison of Approaches to Large-Scale Data Analysis" and HIVE-396. It contains Hive queries (Aggregation and Join) performing the typical OLAP queries described in the paper. Its input is also automatically generated Web data with hyperlinks following the Zipfian distribution.
 
+10. HBase Benchmarks (hbasebench)
+    This workload consists of the tests provided in the org.apache.hadoop.hbase.PerformanceEvaluation class that is included in the HBase distribution.
+ 
 ---
 ### Getting Started ###
 
-2. Prerequisites 
+1. Prerequisites 
 
   1. Setup HiBench-2.2
 
@@ -78,11 +81,15 @@ Note: Since HiBench-2.2, the input data of benchmarks are all automatically gene
 
   2. Setup Hadoop
 
-      Before you run any workload in the package, please verify the Hadoop framework is running correctly. All the workloads have been tested with Cloudera Distribution of Hadoop 3 update 4 (cdh3u4) and Hadoop version 1.0.3
+      Before you run any workload in the package, please verify the Hadoop framework is running correctly. All the workloads have been tested with Cloudera Distribution of Hadoop 3 update 4 (cdh3v4) and Hadoop version 1.0.3
 
   3. Setup Hive (for hivebench)
     
-      Please make sure you have properly set up Hive in your cluster if you want to test hivebench. Or the benchmark willuse the default Hive-0.9 release which is included in package.
+      Please make sure you have properly set up Hive in your cluster if you want to test hivebench. Or the benchmark will use the default Hive-0.9 release which is included in package.
+
+  4. Setup HBase
+
+     Please make sure you have properly set up HBase in your cluster if you want to test hbasebench, no default distribution is assumed, and you MUST have the propery hbase-site.xml file available for HiBench to access.
 
 2. Configure for the all workloads
 
@@ -134,8 +141,8 @@ Note: Since HiBench-2.2, the input data of benchmarks are all automatically gene
 At present, To run Hibench on top of Yarn is supported in Yarn branch.
 And not all test cases are ported, currently only the following cases are supported:
 
-sort / terasort / wordcount / dfsioe / bayes / kmeans
+sort / terasort / wordcount / dfsioe / bayes / kmeans / hivebench / hbasebench
 
-verified upon apache hadoop 2.0.5-alpha
+verified upon the Hortonworks distribution of Apache Hadoop 2.2.x
 
 you might need to tweak a little bit for the other versions, since before release, Hadoop 2.0 API do change a lot.
