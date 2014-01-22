@@ -23,13 +23,15 @@ DIR=`cd $bin/../; pwd`
 . "${DIR}/../bin/hibench-config.sh"
 . "${DIR}/conf/configure.sh"
 
-echo "INPUT_HDFS=$INPUT_HDFS"
 
 # path check
 rm -rf ${DIR}/metastore_db
 rm -rf ${DIR}/TempStatsStore
 $HADOOP_EXECUTABLE $RMDIR_CMD /user/hive/warehouse/uservisits_aggre
 # $HADOOP_EXECUTABLE $RMDIR_CMD /tmp
+
+# Clear out the old hive script...
+rm -f $DIR/hive-benchmark/uservisits_aggre.hive
 
 # pre-running
 # echo "USE default;" > $DIR/hive-benchmark/uservisits_aggre.hive

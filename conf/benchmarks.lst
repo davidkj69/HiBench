@@ -1,4 +1,4 @@
-#nutchindexing
+nutchindexing
 wordcount
 dfsioe
 hivebench
@@ -7,3 +7,4 @@ pagerank
 bayes
 sort
 terasort
+hbasebench

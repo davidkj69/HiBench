@@ -28,6 +28,9 @@ rm -rf ${DIR}/metastore_db
 rm -rf ${DIR}/TempStatsStore
 $HADOOP_EXECUTABLE $RMDIR_CMD /user/hive/warehouse/rankings_uservisits_join
 
+# Clear out the old hive file before we create a new one 
+rm -f $DIR/hive-benchmark/rankings_uservisits_join.hive
+
 # pre-running
 echo "set $CONFIG_MAP_NUMBER=$NUM_MAPS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 echo "set $CONFIG_REDUCER_NUMBER=$NUM_REDS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive

@@ -28,6 +28,11 @@ if [ $COMPRESS -eq 1 ]; then
     COMPRESS_OPT="-c ${COMPRESS_CODEC}"
 fi
 
+# Clean out previous data
+$HADOOP_EXECUTABLE $RMDIR_CMD $OUTPUT_HDFS/hive-join
+$HADOOP_EXECUTABLE $RMDIR_CMD $INPUT_HDFS
+echo "$HADOOP_EXECUTABLE $RMDIR_CMD $INPUT_HDFS"
+
 # generate data
 OPTION="-t hive \
 	-b ${HIVE_BASE_HDFS} \
