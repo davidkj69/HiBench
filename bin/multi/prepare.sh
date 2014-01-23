@@ -35,7 +35,7 @@ fi
 
 # Run the hive script that defines the schema and points the external location to $BENCHMARKING_RESULTS_HDFS_DIR
 echo "DROP TABLE analysis;" >> $HIVE_SCRIPT
-echo "CREATE EXTERNAL TABLE analysis (benchmark STRING, date STRING, time STRING, input_date_size BIGINT, duration FLOAT, throughput_bytes_per_sec BIGINT, throughput_bytes_per_node BIGINT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS SEQUENCEFILE LOCATION '$BENCHMARKING_RESULTS_HDFS_DIR/';" >> $HIVE_SCRIPT
+echo "CREATE EXTERNAL TABLE analysis (benchmark STRING, date STRING, time STRING, input_date_size BIGINT, duration FLOAT, throughput_bytes_per_sec BIGINT, throughput_bytes_per_node BIGINT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '$BENCHMARKING_RESULTS_HDFS_DIR/';" >> $HIVE_SCRIPT
 
 # Create the analysis table
 $HIVE_HOME/bin/hive -f $HIVE_SCRIPT
