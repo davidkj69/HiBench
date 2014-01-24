@@ -76,11 +76,9 @@ if [ -f "${HIBENCH_CONF}/funcs.sh" ]; then
     . "${HIBENCH_CONF}/funcs.sh"
 fi
 
-
 if [ -z "$HIVE_HOME" ]; then
     export HIVE_HOME=${HIBENCH_HOME}/common/hive-0.9.0-bin
 fi
-
 
 if [ -z "$MAHOUT_HOME" ]; then
     export MAHOUT_HOME=${HIBENCH_HOME}/common/mahout-distribution-0.7-$HADOOP_VERSION
@@ -118,3 +116,6 @@ export COMPRESS_GLOBAL=1
 export COMPRESS_CODEC_GLOBAL=org.apache.hadoop.io.compress.DefaultCodec
 #export COMPRESS_CODEC_GLOBAL=com.hadoop.compression.lzo.LzoCodec
 #export COMPRESS_CODEC_GLOBAL=org.apache.hadoop.io.compress.SnappyCodec
+
+################# Summary Report Options #################
+export GENERATE_SUMMARY=1

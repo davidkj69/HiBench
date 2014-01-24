@@ -41,3 +41,8 @@ if [ -f $HIBENCH_REPORT ]; then
   $HADOOP_EXECUTABLE fs -copyFromLocal $HIBENCH_REPORT.$NOW.csv $BENCHMARKING_RESULTS_HDFS_DIR
   rm -f $HIBENCH_REPORT.$NOW.csv
 fi
+
+# Generate summary report
+if [ $GENERATE_SUMMARY -eq 1 ]; then
+   $DIR/generate-summary.sh
+fi
