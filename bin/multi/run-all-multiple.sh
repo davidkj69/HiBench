@@ -20,7 +20,7 @@ BIN=`cd "${DIR}/../"; pwd`
 # Prepare
 . $DIR/prepare.sh
 
-for idx in {1..50}; do
+for idx in {1..40}; do
 
    NOW=$(date +"%m-%d-%Y_%H_%M_%S")
 

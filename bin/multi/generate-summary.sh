@@ -15,6 +15,7 @@
 # limitations under the License.
 DIR=`dirname "$0"`
 BASE=`cd "${DIR}/../.."; pwd`
+DUMP_FILE=$DIR/dump-all.csv
 BENCHMARKS_FILE=$DIR/benchmarks.lst
 
 # Remove the previous list of benchmarks
@@ -35,3 +36,11 @@ done
 
 # Clean up our mess
 rm -f $BENCHMARKS_FILE
+
+# Dump all of the csv files into one big one
+if [ -f $DUMP_FILE ]; then
+   rm -r $DUMP_FILE
+fi
+
+hive -e 'select * from analysis' | sed 's/[[:space:]]\+/,/g' > $DUMP_FILE
+

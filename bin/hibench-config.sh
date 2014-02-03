@@ -30,7 +30,7 @@ export HIBENCH_VERSION="2.2"
 HADOOP_EXECUTABLE=/usr/bin/hadoop 
 HADOOP_CONF_DIR=/etc/hadoop/conf
 HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
-HIBENCH_HOME=/mnt/HiBench
+HIBENCH_HOME=/opt/HiBench
 HIVE_HOME=/usr
 MAHOUT_HOME=/usr/lib/mahout
 
