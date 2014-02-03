@@ -1,0 +1,7 @@
+# HiBench generated files #
+###########################
+*.csv
+*.log
+*.txt
+hibench.report*
+

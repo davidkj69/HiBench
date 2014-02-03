@@ -1,0 +1,2 @@
+DROP TABLE analysis;
+CREATE EXTERNAL TABLE analysis (benchmark STRING, date STRING, time STRING, input_date_size BIGINT, duration FLOAT, throughput_bytes_per_sec BIGINT, throughput_bytes_per_node BIGINT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/benchmarking/results/';
