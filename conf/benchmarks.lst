@@ -1,10 +1,10 @@
 #nutchindexing
-#wordcount
-#dfsioe
-#hivebench
+wordcount
+dfsioe
+hivebench
 kmeans
-#pagerank
-#bayes
-#sort
-#terasort
+pagerank
+bayes
+sort
+terasort
 hbasebench

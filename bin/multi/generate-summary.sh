@@ -20,7 +20,7 @@ BENCHMARKS_FILE=$DIR/benchmarks.lst
 
 # Remove the previous list of benchmarks
 if [ -f $BENCHMARKS_FILE ]; then
-   rm -r $BENCHMARKS_FILE
+   rm -rf $BENCHMARKS_FILE
 fi
 
 # Get a list of all the benchmarks we have metrics for.....
@@ -29,6 +29,10 @@ hive -e 'select distinct(benchmark) from analysis;' > $BENCHMARKS_FILE
 # Gather the metrics
 for b in `cat $BENCHMARKS_FILE`; do
    for metric in duration throughput_bytes_per_sec; do
+      if [ -f $BASE/$metric-summary.csv ]; then
+         rm -rf $BASE/$metric-summary.csv
+      fi
+
       CMD=`echo "hive -e 'select \"$b\", min($metric), max($metric), avg($metric), stddev_pop($metric), variance($metric), count(*) from analysis where benchmark = \"$b\";' | sed 's/[[:space:]]\+/,/g' >> $BASE/$metric-summary.csv"`
       eval $CMD
    done
@@ -39,7 +43,7 @@ rm -f $BENCHMARKS_FILE
 
 # Dump all of the csv files into one big one
 if [ -f $DUMP_FILE ]; then
-   rm -r $DUMP_FILE
+   rm -rf $DUMP_FILE
 fi
 
 hive -e 'select * from analysis' | sed 's/[[:space:]]\+/,/g' > $DUMP_FILE

@@ -20,7 +20,7 @@ BIN=`cd "${DIR}/../"; pwd`
 # Prepare
 . $DIR/prepare.sh
 
-for idx in {1..40}; do
+for idx in {1..14}; do
 
    NOW=$(date +"%m-%d-%Y_%H_%M_%S")
 
@@ -28,6 +28,7 @@ for idx in {1..40}; do
       cat $HIBENCH_REPORT | sort | sed 's/[[:space:]]\+/,/g' | grep -v "Type" >> $HIBENCH_REPORT.$NOW.csv
       $HADOOP_EXECUTABLE fs -copyFromLocal $HIBENCH_REPORT.$NOW.csv $BENCHMARKING_RESULTS_HDFS_DIR
       rm -f $HIBENCH_REPORT.$NOW.csv
+      rm -f $HIBENCH_REPORT
    fi
 
    # This command deletes the $HIBENCH_REPORT file
@@ -40,9 +41,10 @@ if [ -f $HIBENCH_REPORT ]; then
   cat $HIBENCH_REPORT | sort | sed 's/[[:space:]]\+/,/g' | grep -v "Type" >> $HIBENCH_REPORT.$NOW.csv
   $HADOOP_EXECUTABLE fs -copyFromLocal $HIBENCH_REPORT.$NOW.csv $BENCHMARKING_RESULTS_HDFS_DIR
   rm -f $HIBENCH_REPORT.$NOW.csv
+  rm -f $HIBENCH_REPORT
 fi
 
 # Generate summary report
 if [ $GENERATE_SUMMARY -eq 1 ]; then
-   $DIR/generate-summary.sh
+   $DIR/bin/multi/generate-summary.sh
 fi

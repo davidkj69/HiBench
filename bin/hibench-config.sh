@@ -29,7 +29,8 @@ export HIBENCH_VERSION="2.2"
 
 HADOOP_EXECUTABLE=/usr/bin/hadoop 
 HADOOP_CONF_DIR=/etc/hadoop/conf
-HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
+# HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
+HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.10.0-1.jar
 HIBENCH_HOME=/opt/HiBench
 HIVE_HOME=/usr
 MAHOUT_HOME=/usr/lib/mahout
@@ -47,7 +48,8 @@ else
 fi
 
 if [ "x"$HADOOP_VERSION == "xhadoop2" ]; then
-   HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
+   # HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar
+   HADOOP_EXAMPLES_JAR=/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.10.0-1.jar
    MAPRED_EXECUTABLE=/usr/bin/mapred
 
   CONFIG_REDUCER_NUMBER=mapreduce.job.reduces

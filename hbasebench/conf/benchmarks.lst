@@ -5,7 +5,5 @@ randomWrite
 scan
 scanRange10
 scanRange100
-scanRange1000
-scanRange1000
 sequentialRead
 sequentialWrite
