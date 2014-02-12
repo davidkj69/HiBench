@@ -29,9 +29,6 @@ hive -e 'select distinct(benchmark) from analysis;' > $BENCHMARKS_FILE
 # Gather the metrics
 for b in `cat $BENCHMARKS_FILE`; do
    for metric in duration throughput_bytes_per_sec; do
-      if [ -f $BASE/$metric-summary.csv ]; then
-         rm -rf $BASE/$metric-summary.csv
-      fi
 
       CMD=`echo "hive -e 'select \"$b\", min($metric), max($metric), avg($metric), stddev_pop($metric), variance($metric), count(*) from analysis where benchmark = \"$b\";' | sed 's/[[:space:]]\+/,/g' >> $BASE/$metric-summary.csv"`
       eval $CMD
