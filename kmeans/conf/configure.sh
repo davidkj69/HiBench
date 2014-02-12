@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+MAHOUT_EXAMPLES_JAR=/usr/lib/mahout/mahout-examples-0.8.0.2.0.10.0-1-job.jar
+
 # compress
 COMPRESS=$COMPRESS_GLOBAL
 COMPRESS_CODEC=$COMPRESS_CODEC_GLOBAL

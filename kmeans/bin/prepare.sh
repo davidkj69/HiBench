@@ -43,7 +43,7 @@ OPTION="-sampleDir ${INPUT_SAMPLE} -clusterDir ${INPUT_CLUSTER} -numClusters ${N
 
 rm -rf $TMPLOGFILE
 
-export HADOOP_CLASSPATH=/usr/lib/mahout/mahout-examples-0.8.0.2.0.6.0-76-job.jar:/opt/HiBench/common/autogen/lib/uncommons-maths-1.2.2.jar
+export HADOOP_CLASSPATH=$MAHOUT_EXAMPLES_JAR:/opt/HiBench/common/autogen/lib/uncommons-maths-1.2.2.jar
 
-exec "$HADOOP_EXECUTABLE" --config $HADOOP_CONF_DIR jar ${DATATOOLS} org.apache.mahout.clustering.kmeans.GenKMeansDataset -libjars $MAHOUT_HOME/mahout-examples-0.8.0.2.0.6.0-76-job.jar,/opt/HiBench/common/autogen/lib/uncommons-maths-1.2.2.jar ${COMPRESS_OPT} ${OPTION} 2>&1 | tee $TMPLOGFILE
+exec "$HADOOP_EXECUTABLE" --config $HADOOP_CONF_DIR jar ${DATATOOLS} org.apache.mahout.clustering.kmeans.GenKMeansDataset -libjars $MAHOUT_EXAMPLES_JAR,/opt/HiBench/common/autogen/lib/uncommons-maths-1.2.2.jar ${COMPRESS_OPT} ${OPTION} 2>&1 | tee $TMPLOGFILE
 
