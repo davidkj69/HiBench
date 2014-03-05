@@ -38,7 +38,6 @@ $HADOOP_EXECUTABLE jar $HADOOP_EXAMPLES_JAR sort \
     $COMPRESS_OPT \
     -outKey org.apache.hadoop.io.Text \
     -outValue org.apache.hadoop.io.Text \
-    -r ${NUM_REDS} \
     $INPUT_HDFS $OUTPUT_HDFS \
     2>&1 | tee $TMPLOGFILE
 

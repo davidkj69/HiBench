@@ -32,8 +32,8 @@ $HADOOP_EXECUTABLE $RMDIR_CMD /user/hive/warehouse/rankings_uservisits_join
 rm -f $DIR/hive-benchmark/rankings_uservisits_join.hive
 
 # pre-running
-echo "set $CONFIG_MAP_NUMBER=$NUM_MAPS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
-echo "set $CONFIG_REDUCER_NUMBER=$NUM_REDS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
+# echo "set $CONFIG_MAP_NUMBER=$NUM_MAPS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
+# echo "set $CONFIG_REDUCER_NUMBER=$NUM_REDS;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 echo "set hive.stats.autogather=false;">>$DIR/hive-benchmark/rankings_uservisits_join.hive
 
 if [ "x"$HADOOP_VERSION == "xhadoop2" ]; then

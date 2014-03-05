@@ -35,8 +35,8 @@ rm -f $DIR/hive-benchmark/uservisits_aggre.hive
 
 # pre-running
 # echo "USE default;" > $DIR/hive-benchmark/uservisits_aggre.hive
-echo "set mapred.map.tasks=$NUM_MAPS;" >> $DIR/hive-benchmark/uservisits_aggre.hive
-echo "set mapred.reduce.tasks=$NUM_REDS;" >> $DIR/hive-benchmark/uservisits_aggre.hive
+# echo "set mapred.map.tasks=$NUM_MAPS;" >> $DIR/hive-benchmark/uservisits_aggre.hive
+# echo "set mapred.reduce.tasks=$NUM_REDS;" >> $DIR/hive-benchmark/uservisits_aggre.hive
 echo "set hive.stats.autogather=false;" >> $DIR/hive-benchmark/uservisits_aggre.hive
 
 if [ $COMPRESS -eq 1 ]; then

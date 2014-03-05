@@ -23,7 +23,7 @@ COMPRESS=$COMPRESS_GLOBAL
 COMPRESS_CODEC=$COMPRE
 
 # The number of rows 
-ROWS=50000
+ROWS=5000000
 
 # Total number of clients (and HRegionServers) running
-NUM_CLIENTS=4
+NUM_CLIENTS=20

@@ -33,11 +33,12 @@ fi
 OPTION="-t pagerank \
 	-b ${PAGERANK_BASE_HDFS} \
 	-n ${PAGERANK_INPUT} \
-	-m ${NUM_MAPS} \
-	-r ${NUM_REDS} \
 	-p ${PAGES} \
+	-v ${VISITS} \
 	-o text"
 
+# 	-m ${NUM_MAPS} \
+# 	-r ${NUM_REDS} \
 #	-d ${DELIMITER} \
 $HADOOP_EXECUTABLE jar ${DATATOOLS} HiBench.DataGen ${OPTION} ${COMPRESS_OPT}
 
